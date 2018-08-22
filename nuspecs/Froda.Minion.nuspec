@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
 	<metadata>
-		<id>Minion</id>
+		<id>Froda.Minion</id>
 		<version>#{version}#</version>
 		<authors>Pelle Tyrefors Branden</authors>
 		<owners>Monetise Capital AB</owners>
@@ -11,14 +11,14 @@
 		<tags>Minion Long-Running Background Fire-And-Forget Delayed Recurring Tasks Jobs Scheduler</tags>
 		<dependencies>
 			<group targetFramework="net451">
-				<dependency id="Minion.Core" version="#{version}#" />
-				<dependency id="Minion.InMemory" version="#{version}#" />
-				<dependency id="Minion.Sql" version="#{version}#" />
+				<dependency id="Froda.Minion.Core" version="#{version}#" />
+				<dependency id="Froda.Minion.InMemory" version="#{version}#" />
+				<dependency id="Froda.Minion.Sql" version="#{version}#" />
 			</group>
 			<group targetFramework="netstandard1.6">
-				<dependency id="Minion.Core" version="#{version}#" />
-				<dependency id="Minion.InMemory" version="#{version}#" />
-				<dependency id="Minion.Sql" version="#{version}#" />
+				<dependency id="Froda.Minion.Core" version="#{version}#" />
+				<dependency id="Froda.Minion.InMemory" version="#{version}#" />
+				<dependency id="Froda.Minion.Sql" version="#{version}#" />
 				<dependency id="NETStandard.Library" version="1.6.1" />
 			</group>
 		</dependencies>

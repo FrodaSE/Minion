@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
 	<metadata>
-		<id>Minion.Core</id>
+		<id>Froda.Minion.Core</id>
 		<version>#{version}#</version>
 		<authors>Pelle Tyrefors Branden</authors>
 		<owners>Monetise Capital AB</owners>
