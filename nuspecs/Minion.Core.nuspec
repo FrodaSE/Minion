@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>Minion.Core</id>
-		<version>0.0.0</version>
+		<version>#{version}#</version>
 		<authors>Pelle Tyrefors Branden</authors>
 		<owners>Monetise Capital AB</owners>
 		<requireLicenseAccaptance>false</requireLicenseAccaptance>

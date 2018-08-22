@@ -2,7 +2,7 @@
 <package>
 	<metadata>
 		<id>Minion.Sql</id>
-		<version>0.0.0</version>
+		<version>#{version}#</version>
 		<authors>Pelle Tyrefors Branden</authors>
 		<owners>Monetise Capital AB</owners>
 		<requireLicenseAccaptance>false</requireLicenseAccaptance>
@@ -11,13 +11,13 @@
 		<tags>Minion Sql SqlServer</tags>
 		<dependencies>
 			<group targetFramework="net451">
-				<dependency id="Minion.Core" version="[0.0.0]" />
+				<dependency id="Minion.Core" version="#{version}#" />
 				<dependency id="Dapper" version="1.50.5" />
 				<dependency id="Newtonsoft.Json" version="11.0.2" />
 				<dependency id="Polly" version="6.1.0" />
 			</group>
 			<group targetFramework="netstandard1.6">
-				<dependency id="Minion.Core" version="[0.0.0]" />
+				<dependency id="Minion.Core" version="#{version}#" />
 				<dependency id="Dapper" version="1.50.5" />
 				<dependency id="Newtonsoft.Json" version="11.0.2" />
 				<dependency id="Polly" version="6.1.0" />
