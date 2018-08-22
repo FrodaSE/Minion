@@ -5,7 +5,7 @@
 		<version>#{version}#</version>
 		<authors>Pelle Tyrefors Branden</authors>
 		<owners>Monetise Capital AB</owners>
-		<requireLicenseAccaptance>false</requireLicenseAccaptance>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Minion, background job system for .NET applications.</description>
 		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
 		<tags>Minion Long-Running Background Fire-And-Forget Delayed Recurring Tasks Jobs Scheduler</tags>

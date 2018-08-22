@@ -5,7 +5,7 @@
 		<version>#{version}#</version>
 		<authors>Pelle Tyrefors Branden</authors>
 		<owners>Monetise Capital AB</owners>
-		<requireLicenseAccaptance>false</requireLicenseAccaptance>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Sql storage support for Minion, background job system for .NET applications.</description>
 		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
 		<tags>Minion Sql SqlServer</tags>
