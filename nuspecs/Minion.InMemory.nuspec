@@ -26,8 +26,8 @@
 		<file src="net451\Minion.InMemory.pdb" target="lib\net451" />
 		<file src="net451\System.Runtime.InteropServices.RuntimeInformation.dll" target="lib\net451" />
 
-		<file src="netstandard1.6\InMemory.Core.dll" target="lib\netstandard1.6" />
-		<file src="netstandard1.6\InMemory.Core.pdb" target="lib\netstandard1.6" />
-		<file src="netstandard1.6\InMemory.Core.deps.json" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.InMemory.dll" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.InMemory.pdb" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.InMemory.deps.json" target="lib\netstandard1.6" />
 	</files>
 </package>

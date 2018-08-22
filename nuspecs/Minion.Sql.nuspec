@@ -30,8 +30,8 @@
 		<file src="net451\Minion.Sql.pdb" target="lib\net451" />
 		<file src="net451\System.Runtime.InteropServices.RuntimeInformation.dll" target="lib\net451" />
 
-		<file src="netstandard1.6\InMemory.Sql.dll" target="lib\netstandard1.6" />
-		<file src="netstandard1.6\InMemory.Sql.pdb" target="lib\netstandard1.6" />
-		<file src="netstandard1.6\InMemory.Sql.deps.json" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.Sql.dll" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.Sql.pdb" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.Sql.deps.json" target="lib\netstandard1.6" />
 	</files>
 </package>
