@@ -12,7 +12,6 @@ Example of scenarios when you can use Minion:
 * ... and more
 
 ## Installation
--------------
 
 Minion is available as a NuGet package. You can install it using the NuGet Package Console windows in Visual Studio:
 
@@ -21,7 +20,6 @@ PM> Install-Package Froda.Minion
 ```
 
 ## Usage
--------------
 
 To run the server, add the folliwing lines of code:
 
@@ -225,7 +223,7 @@ public class CustomDependencyResolver : IDependencyResolver
 }
 ```
 
-Then you need to pass your resolver to the batch eninge:
+Then you need to pass your resolver to the batch engine:
 ```
 ...
 var container = new Container();
