@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>Minion.Core</id>
+		<version>0.0.0</version>
+		<authors>Pelle Tyrefors Branden</authors>
+		<owners>Monetise Capital AB</owners>
+		<requireLicenseAccaptance>false</requireLicenseAccaptance>
+		<description>Core components for Minion, background job system for .NET applications.</description>
+		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
+		<tags>Minion Long-Running Background Fire-And-Forget Delayed Recurring Tasks Jobs Scheduler</tags>
+		<dependencies>
+			<group targetFramework="net451">
+				<dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.2" />
+			</group>
+			<group targetFramework="netstandard1.6">
+				<dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.2" />
+				<dependency id="NETStandard.Library" version="1.6.1" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="net451\Minion.Core.dll" target="lib\net451" />
+		<file src="net451\Minion.Core.pdb" target="lib\net451" />
+		<file src="net451\Microsoft.Extensions.Logging.Abstractions.dll" target="lib\net451" />
+		<file src="net451\System.Runtime.InteropServices.RuntimeInformation.dll" target="lib\net451" />
+
+		<file src="netstandard1.6\Minion.Core.dll" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.Core.pdb" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\Minion.Core.deps.json" target="lib\netstandard1.6" />
+	</files>
+</package>

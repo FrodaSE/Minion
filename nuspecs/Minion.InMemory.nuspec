@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>Minion.InMemory</id>
+		<version>0.0.0</version>
+		<authors>Pelle Tyrefors Branden</authors>
+		<owners>Monetise Capital AB</owners>
+		<requireLicenseAccaptance>false</requireLicenseAccaptance>
+		<description>In memory storage support for Minion, background job system for .NET applications.</description>
+		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
+		<tags>Minion InMemory</tags>
+		<dependencies>
+			<group targetFramework="net451">
+				<dependency id="Minion.Core" version="[0.0.0]" />
+				<dependency id="Newtonsoft.Json" version="11.0.2" />
+			</group>
+			<group targetFramework="netstandard1.6">
+				<dependency id="Minion.Core" version="[0.0.0]" />
+				<dependency id="Newtonsoft.Json" version="11.0.2" />
+				<dependency id="NETStandard.Library" version="1.6.1" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="net451\Minion.InMemory.dll" target="lib\net451" />
+		<file src="net451\Minion.InMemory.pdb" target="lib\net451" />
+		<file src="net451\System.Runtime.InteropServices.RuntimeInformation.dll" target="lib\net451" />
+
+		<file src="netstandard1.6\InMemory.Core.dll" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\InMemory.Core.pdb" target="lib\netstandard1.6" />
+		<file src="netstandard1.6\InMemory.Core.deps.json" target="lib\netstandard1.6" />
+	</files>
+</package>
