@@ -37,7 +37,7 @@ using (var engine = new BatchEngine(store))
 }
 ```
 
-All jobs needs to inherit from `Job` or `Job<TInput>`:
+All jobs need to inherit from `Job` or `Job<TInput>`:
 
 ```
 public class SimpleJob : Job
@@ -161,7 +161,7 @@ set.Add<ThirdJob>();
 
 sequence.Add(set);
 
-sequence.Add<FourthJob>(); //Only when both second and third job are finished, this will run
+sequence.Add<FourthJob>(); //Only when both second and third job is finished, this will run
 
 await scheduler.QueueAsync(sequence);
 ```
@@ -170,7 +170,7 @@ await scheduler.QueueAsync(sequence);
 
 With the TestingBatchEngine you can simulate your jobs with the ability to time travel.
 
-For an example, if you schedule a job to send an email two days from now, you can fast forward and the batch engine will act as if two days has past.
+For an example, if you schedule a job to send an email two days from now, you can fast forward and the batch engine will act as if two days have passed.
 
 ```
 [Fact]
