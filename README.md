@@ -168,7 +168,7 @@ sequence.Add<FourthJob>(); //Only when both second and third job are finished, t
 await scheduler.QueueAsync(sequence);
 ```
 
-## Testing
+**Testing**
 
 With the TestingBatchEngine you can simulate your jobs with the ability to time travel.
 
@@ -195,6 +195,47 @@ public async Task Can_Send_Email() {
     //Assert
     ...
 }
+```
 
+**Dependency Injection**
 
+To hook up your IoC container to, you need to create a class that inherits from IDependencyResolver:
+
+```
+public class CustomDependencyResolver : IDependencyResolver 
+{
+    private readonly IContainer _container;
+
+    public CustomDependencyResolver(IContainer container) 
+    {
+        _container = container;
+    }
+
+    public bool Resolve(Type type, out object resolvedType)
+    {
+        resolvedType = _container.Resolve(type);
+
+        if(resolvedType == null)
+        {
+            return false;    
+        }
+
+        return true;
+    }
+}
+```
+
+Then you need to pass your resolver to the batch eninge:
+```
+...
+var container = new Container();
+var resolver = new CustomDependencyResolver(container);
+
+using(var engine = new BatchEngine(store, resolver)) {
+
+    engine.Start();
+
+    Console.ReadKey();
+
+}
 ```
