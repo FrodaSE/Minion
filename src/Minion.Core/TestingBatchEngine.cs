@@ -11,7 +11,7 @@ namespace Minion.Core
         private readonly IDateSimulationService _dateService;
         private readonly IJobExecutor _jobExecutor;
 
-        public TestingBatchEngine(ITestingBatchStore store, IDateSimulationService dateService, IDependencyResolver resolver)
+        public TestingBatchEngine(ITestingBatchStore store, IDateSimulationService dateService, IDependencyResolver resolver = null)
         {
             _store = store;
             _dateService = dateService;

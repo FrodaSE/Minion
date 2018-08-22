@@ -97,7 +97,36 @@ namespace Minion.Core
 			return QueueAsync(sequence);
 		}
 
-		private JobDescription[] Process(JobScope jobScope, List<JobDescription> jobSet,
+	    /// <summary>
+	    /// Queue a job
+	    /// </summary>
+	    /// <param name="dueTime">The time when to start executing</param>
+	    /// <returns>The id of the batch</returns>
+        public Task<Guid> QueueAsync<TJob>(DateTime dueTime) where TJob : Job
+	    {
+	        var sequence = new Sequence();
+
+	        sequence.Add<TJob>(dueTime);
+
+	        return QueueAsync(sequence);
+        }
+
+	    /// <summary>
+	    /// Queue a job
+	    /// </summary>
+	    /// <param name="input">The input data for the job</param>
+	    /// <param name="dueTime">The time when to start executing</param>
+	    /// <returns>The id of the batch</returns>
+        public Task<Guid> QueueAsync<TJob, TInput>(TInput input, DateTime dueTime) where TJob : Job<TInput>
+	    {
+	        var sequence = new Sequence();
+
+	        sequence.Add<TJob, TInput>(input, dueTime);
+
+	        return QueueAsync(sequence);
+        }
+
+	    private JobDescription[] Process(JobScope jobScope, List<JobDescription> jobSet,
 			params JobDescription[] previous)
 		{
 			switch (jobScope)

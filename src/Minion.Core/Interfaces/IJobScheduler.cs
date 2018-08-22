@@ -27,19 +27,36 @@ namespace Minion.Core.Interfaces
 		/// <returns>The id of the batch</returns>
 		Task<Guid> QueueAsync(Sequence sequence);
 
-		/// <summary>
-		/// Queue a job
-		/// </summary>
-		/// <returns>The id of the batch</returns>
-		Task<Guid> QueueAsync<TJob>()
-			where TJob : Job;
+	    /// <summary>
+	    /// Queue a job
+	    /// </summary>
+	    /// <returns>The id of the batch</returns>
+	    Task<Guid> QueueAsync<TJob>()
+	        where TJob : Job;
 
-		/// <summary>
-		/// Queue a job
-		/// </summary>
-		/// <param name="input">The input data for the job</param>
-		/// <returns>The id of the batch</returns>
-		Task<Guid> QueueAsync<TJob, TInput>(TInput input)
-			where TJob : Job<TInput>;
-	}
+	    /// <summary>
+	    /// Queue a job
+	    /// </summary>
+	    /// <param name="input">The input data for the job</param>
+	    /// <returns>The id of the batch</returns>
+	    Task<Guid> QueueAsync<TJob, TInput>(TInput input)
+	        where TJob : Job<TInput>;
+
+        /// <summary>
+        /// Queue a job
+        /// </summary>
+        /// <param name="dueTime">The time when to start executing</param>
+        /// <returns>The id of the batch</returns>
+        Task<Guid> QueueAsync<TJob>(DateTime dueTime)
+	        where TJob : Job;
+
+	    /// <summary>
+	    /// Queue a job
+	    /// </summary>
+	    /// <param name="input">The input data for the job</param>
+	    /// <param name="dueTime">The time when to start executing</param>
+	    /// <returns>The id of the batch</returns>
+	    Task<Guid> QueueAsync<TJob, TInput>(TInput input, DateTime dueTime)
+	        where TJob : Job<TInput>;
+    }
 }

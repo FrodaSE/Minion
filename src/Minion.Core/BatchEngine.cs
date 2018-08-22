@@ -14,18 +14,17 @@ namespace Minion.Core
         private readonly ILogger _logger;
         private readonly BatchSettings _settings;
 
-
         private CancellationTokenSource _cts;
         private Task _engineTask;
 
         private Task _heartBeatTask;
 
-        public BatchEngine(IBatchStore store, IDependencyResolver resolver, ILogger logger, BatchSettings batchSettings)
+        public BatchEngine(IBatchStore store, IDependencyResolver resolver = null, ILogger logger = null, BatchSettings batchSettings = null)
         {
             _store = store;
             _jobExecutor = new DependencyInjectionJobExecutor(resolver);
             _logger = logger;
-            _settings = batchSettings;
+            _settings = batchSettings ?? new BatchSettings();
         }
 
         public void Dispose()

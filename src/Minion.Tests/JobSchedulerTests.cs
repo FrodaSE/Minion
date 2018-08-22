@@ -433,48 +433,94 @@ namespace Minion.Tests
 
 			Assert.Equal(_now, result1.UpdatedTime);
 			Assert.Equal(_now, result2.UpdatedTime);
-		}
+	    }
 
-		[Fact(DisplayName = "Queue Job")]
-		public async Task Queue_Job()
-		{
-			//Arrange
-			IEnumerable<JobDescription> jobs = null;
+	    [Fact(DisplayName = "Queue Job")]
+	    public async Task Queue_Job()
+	    {
+	        //Arrange
+	        IEnumerable<JobDescription> jobs = null;
 
-			await _store.AddJobsAsync(Arg.Do<IEnumerable<JobDescription>>(x => jobs = x));
+	        await _store.AddJobsAsync(Arg.Do<IEnumerable<JobDescription>>(x => jobs = x));
 
-			//Act
-			var batchId = await _scheduler.QueueAsync<TestJobWithoutInput>();
+	        //Act
+	        var batchId = await _scheduler.QueueAsync<TestJobWithoutInput>();
 
-			//Assert
-			await _store.Received(1).AddJobsAsync(jobs);
+	        //Assert
+	        await _store.Received(1).AddJobsAsync(jobs);
 
-			var result1 = jobs.ElementAt(0);
+	        var result1 = jobs.ElementAt(0);
 
-			Assert.Equal(batchId, result1.BatchId);
-			Assert.Equal(_now, result1.CreatedTime);
-			Assert.Equal(_now, result1.UpdatedTime);
-		}
+	        Assert.Equal(batchId, result1.BatchId);
+	        Assert.Equal(_now, result1.CreatedTime);
+	        Assert.Equal(_now, result1.UpdatedTime);
+	    }
 
-		[Fact(DisplayName = "Queue Job With Data")]
-		public async Task Queue_Job_With_Data()
-		{
-			//Arrange
-			IEnumerable<JobDescription> jobs = null;
+	    [Fact(DisplayName = "Queue Job With Data")]
+	    public async Task Queue_Job_With_Data()
+	    {
+	        //Arrange
+	        IEnumerable<JobDescription> jobs = null;
 
-			await _store.AddJobsAsync(Arg.Do<IEnumerable<JobDescription>>(x => jobs = x));
+	        await _store.AddJobsAsync(Arg.Do<IEnumerable<JobDescription>>(x => jobs = x));
 
-			//Act
-			var batchId = await _scheduler.QueueAsync<TestJob, int>(1);
+	        //Act
+	        var batchId = await _scheduler.QueueAsync<TestJob, int>(1);
 
-			//Assert
-			await _store.Received(1).AddJobsAsync(jobs);
+	        //Assert
+	        await _store.Received(1).AddJobsAsync(jobs);
 
-			var result1 = jobs.ElementAt(0);
+	        var result1 = jobs.ElementAt(0);
 
-			Assert.Equal(batchId, result1.BatchId);
-			Assert.Equal(_now, result1.CreatedTime);
-			Assert.Equal(_now, result1.UpdatedTime);
-		}
-	}
+	        Assert.Equal(batchId, result1.BatchId);
+	        Assert.Equal(_now, result1.CreatedTime);
+	        Assert.Equal(_now, result1.UpdatedTime);
+	    }
+
+	    [Fact(DisplayName = "Queue Job With DueTime")]
+	    public async Task Queue_Job_With_DueTime()
+	    {
+	        //Arrange
+	        IEnumerable<JobDescription> jobs = null;
+	        var time = new DateTime(2016, 1, 2, 3, 4, 5);
+
+	        await _store.AddJobsAsync(Arg.Do<IEnumerable<JobDescription>>(x => jobs = x));
+
+	        //Act
+	        var batchId = await _scheduler.QueueAsync<TestJobWithoutInput>(time);
+
+	        //Assert
+	        await _store.Received(1).AddJobsAsync(jobs);
+
+	        var result1 = jobs.ElementAt(0);
+
+	        Assert.Equal(batchId, result1.BatchId);
+	        Assert.Equal(_now, result1.CreatedTime);
+	        Assert.Equal(_now, result1.UpdatedTime);
+	        Assert.Equal(time, result1.DueTime);
+        }
+
+        [Fact(DisplayName = "Queue Job With Data And DueTime")]
+        public async Task Queue_Job_With_Data_And_DueTime()
+        {
+            //Arrange
+            IEnumerable<JobDescription> jobs = null;
+            var time = new DateTime(2016, 1, 2, 3, 4, 5);
+
+            await _store.AddJobsAsync(Arg.Do<IEnumerable<JobDescription>>(x => jobs = x));
+
+            //Act
+            var batchId = await _scheduler.QueueAsync<TestJob, int>(1, time);
+
+            //Assert
+            await _store.Received(1).AddJobsAsync(jobs);
+
+            var result1 = jobs.ElementAt(0);
+
+            Assert.Equal(batchId, result1.BatchId);
+            Assert.Equal(_now, result1.CreatedTime);
+            Assert.Equal(_now, result1.UpdatedTime);
+            Assert.Equal(time, result1.DueTime);
+        }
+    }
 }
