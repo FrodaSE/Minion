@@ -333,6 +333,44 @@ namespace Minion.Tests
             AssertNoErrorsLogged();
         }
 
+        [Fact(DisplayName = "Polling Frequency Zero Should Release Semaphore")]
+        public async Task Polling_Frequency_Zero_Should_Release_Semaphore()
+        {    //Arrange
+            var settings = new BatchSettings
+            {
+                NumberOfParallelJobs = 1,
+                PollingFrequency = 0,
+                HeartBeatFrequency = 5000,
+            };
+
+            var data = new TestJobWithReturnData.TestData
+            {
+                State = ExecutionState.Waiting,
+                StatusInfo = "info",
+                DueTime = new DateTime(2018, 1, 2, 3, 4, 5)
+            };
+
+            var job = CreateJobWithReturnData(data);
+
+            job.Id = Guid.NewGuid();
+
+            _store.AcquireJobAsync().Returns(Task.FromResult(job), Task.FromResult((JobDescription)null), Task.FromResult(job), Task.FromResult((JobDescription)null));
+
+            //Act
+            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            {
+                engine.Start();
+
+                await Task.Delay(200);
+            }
+
+            //Assert
+
+            await _store.Received(2).ReleaseJobAsync(job.Id, Arg.Any<JobResult>());
+
+            AssertNoErrorsLogged();
+        }
+
         private JobDescription CreateJob(int data)
         {
             return new JobDescription
