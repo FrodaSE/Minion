@@ -237,3 +237,7 @@ using(var engine = new BatchEngine(store, resolver)) {
 
 }
 ```
+
+## License
+
+Minion goes under The MIT License (MIT).
