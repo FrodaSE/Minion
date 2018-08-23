@@ -120,10 +120,7 @@ namespace Minion.Core
                         {
 #pragma warning disable 4014
                             ExecuteAndReleaseJobAsync(job)
-                                .ContinueWith(_ =>
-                                {
-                                    return semaphore.Release();
-                                });
+                                .ContinueWith(_ => semaphore.Release());
 #pragma warning restore 4014
                         }
                     }
