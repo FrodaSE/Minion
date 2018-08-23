@@ -100,11 +100,11 @@ namespace Minion.Core
 
                         if (job == null)
                         {
-                            if (_settings.PollingFrequency <= 0)
-                                continue;
-
                             try
                             {
+                                if (_settings.PollingFrequency <= 0)
+                                    continue;
+
                                 await Task.Delay(_settings.PollingFrequency, token);
                             }
                             catch (OperationCanceledException)
@@ -120,7 +120,10 @@ namespace Minion.Core
                         {
 #pragma warning disable 4014
                             ExecuteAndReleaseJobAsync(job)
-                                .ContinueWith(_ => semaphore.Release());
+                                .ContinueWith(_ =>
+                                {
+                                    return semaphore.Release();
+                                });
 #pragma warning restore 4014
                         }
                     }
