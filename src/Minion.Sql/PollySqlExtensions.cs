@@ -33,7 +33,7 @@ namespace Minion.Sql
 
         private static TimeSpan ExponentialBackoff(int attempt)
         {
-            return TimeSpan.FromSeconds(Math.Pow(1, attempt));
+            return TimeSpan.FromSeconds(Math.Pow(2, attempt));
         }
 
         private static bool AnyRetryableError(SqlException exception)
