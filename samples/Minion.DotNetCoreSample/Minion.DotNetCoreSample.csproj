@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Minion.InMemory\Minion.InMemory.csproj" />
     <ProjectReference Include="..\..\src\Minion.Core\Minion.Core.csproj" />
+    <ProjectReference Include="..\..\src\Minion.Sql\Minion.Sql.csproj" />
   </ItemGroup>
 
 </Project>

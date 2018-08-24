@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Minion.Core;
 using Minion.Core.Interfaces;
 using Minion.Core.Models;
 using Newtonsoft.Json;
 
 namespace Minion.InMemory
 {
-
     public class InMemoryStorage : ITestingBatchStore, IBatchStore
     {
         private readonly IDateService _dateService;
         private readonly object _lock = new object();
         private readonly HashSet<JobDescription> _jobs = new HashSet<JobDescription>();
 
-        public InMemoryStorage(IDateService dateService)
+        public InMemoryStorage()
+        {
+            _dateService = MinionConfiguration.Configuration.DateService;
+        }
+
+        [Obsolete("Only used for testing")]
+        internal InMemoryStorage(IDateService dateService)
         {
             _dateService = dateService;
         }

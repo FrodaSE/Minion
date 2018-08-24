@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Minion.Core;
 using Minion.Core.Interfaces;
 using Minion.Core.Models;
 using Minion.InMemory;
+using Minion.Sql;
 
 namespace Minion.DotNetCoreSample
 {
+
     class Program
     {
         static void Main(string[] args)
         {
             //Setup
-            var dateService = new UtcDateService();
-            var store = new InMemoryStorage(dateService);
-            var resolver = new SimpleResolver(dateService);
-            ILogger logger = null;
-            var settings = new BatchSettings
-            {
-                HeartBeatFrequency = 2000,
-                NumberOfParallelJobs = 2,
-                PollingFrequency = 500
-            };
+            var resolver = new SimpleResolver();
+
+            MinionConfiguration.Configuration.UseDependencyResolver(resolver);
+            MinionConfiguration.Configuration.UseInMemoryStorage();
+            MinionConfiguration.Configuration.UseSqlStorage("<ConnectionString>");
+
+            MinionConfiguration.Configuration.HeartBeatFrequency = 2000;
+            MinionConfiguration.Configuration.NumberOfParallelJobs = 2;
+            MinionConfiguration.Configuration.PollingFrequency = 500;
+
             
-            var scheduler = new JobScheduler(store, dateService);
+            var scheduler = new JobScheduler();
 
             //Add a sequence of jobs
             var sequence = new Sequence();
@@ -42,7 +43,7 @@ namespace Minion.DotNetCoreSample
             scheduler.QueueAsync<RecurringJob>();
 
             //Start the engine
-            using (var engine = new BatchEngine(store, resolver, logger, settings))
+            using (var engine = new BatchEngine())
 			{
 				Console.WriteLine("Starting ...");
 
@@ -57,10 +58,11 @@ namespace Minion.DotNetCoreSample
     {
         private readonly IDateService _dateService;
 
-        public SimpleResolver(IDateService dateService)
+        public SimpleResolver()
         {
-            _dateService = dateService;
+            _dateService = MinionConfiguration.Configuration.DateService;
         }
+
 
         public bool Resolve(Type type, out object resolvedType)
         {

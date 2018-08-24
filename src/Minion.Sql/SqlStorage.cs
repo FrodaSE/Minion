@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Minion.Core;
 using Minion.Core.Interfaces;
 using Minion.Core.Models;
 using Newtonsoft.Json;
@@ -34,7 +35,14 @@ namespace Minion.Sql
         private readonly IDateService _dateService;
         private readonly string _connectionString;
 
-        public SqlStorage(IDateService dateService, string connectionString)
+        public SqlStorage(string connectionString)
+        {
+            _dateService = MinionConfiguration.Configuration.DateService;
+            _connectionString = connectionString;
+        }
+
+        [Obsolete("Only used for testing")]
+        internal SqlStorage(IDateService dateService, string connectionString)
         {
             _dateService = dateService;
             _connectionString = connectionString;

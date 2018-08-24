@@ -11,7 +11,14 @@ namespace Minion.Core
 		private readonly IBatchStore _store;
 		private readonly IDateService _dateService;
 
-		public JobScheduler(IBatchStore store, IDateService dateService)
+	    public JobScheduler()
+	    {
+	        _store = MinionConfiguration.Configuration.Store;
+	        _dateService = MinionConfiguration.Configuration.DateService;
+	    }
+
+        [Obsolete("Only used for testing")]
+		internal JobScheduler(IBatchStore store, IDateService dateService)
 		{
 			_store = store;
 			_dateService = dateService;
