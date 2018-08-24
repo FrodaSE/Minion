@@ -7,81 +7,6 @@ using Minion.Core.Models;
 
 namespace Minion.Core
 {
-    public sealed class Singleton
-    {
-        private static readonly Singleton instance = new Singleton();
-        public static Singleton Instance { get { return instance; } }
-
-        static Singleton() { }
-        private Singleton() { }
-    }
-
-    public sealed class MinionConfiguration
-    {
-        private static readonly MinionConfiguration instance = new MinionConfiguration();
-        private IBatchStore _store;
-        private readonly DatePassThruService _dateService = new DatePassThruService(new UtcDateService());
-        private IDependencyResolver _dependencyResolver;
-        private ILogger _logger;
-
-        public static MinionConfiguration Configuration { get { return instance; } }
-        public IBatchStore Store => _store;
-        public IDateService DateService => _dateService;
-        public IDependencyResolver DependencyResolver => _dependencyResolver;
-        public ILogger Logger => _logger;
-        public int HeartBeatFrequency { get; set; }
-        public int NumberOfParallelJobs { get; set; }
-        public int PollingFrequency { get; set; }
-
-        static MinionConfiguration() { }
-        private MinionConfiguration() { }
-
-        public void UseDateService(IDateService dateService)
-        {
-            _dateService.UseDateService(dateService);
-        }
-
-        public void UseBatchStore(IBatchStore store)
-        {
-            _store = store;
-        }
-
-        public void UseDependencyResolver(IDependencyResolver resolver)
-        {
-            _dependencyResolver = resolver;
-        }
-
-        public void UseLogger(ILogger logger)
-        {
-            _logger = logger;
-        }
-    }
-
-    internal class DatePassThruService : IDateService
-    {
-        private IDateService _dateService;
-
-        public DatePassThruService(IDateService dateService)
-        {
-            _dateService = dateService;
-        }
-
-        public DateTime GetNow()
-        {
-            return _dateService.GetNow();
-        }
-
-        public DateTime GetToday()
-        {
-            return _dateService.GetToday();
-        }
-
-        public void UseDateService(IDateService dateService)
-        {
-            _dateService = dateService;
-        }
-    }
-
     public class BatchEngine : IDisposable
     {
         private readonly IBatchStore _store;
@@ -108,7 +33,7 @@ namespace Minion.Core
         }
 
         [Obsolete("Only used for testing")]
-        internal BatchEngine(IBatchStore store, IDependencyResolver resolver = null, ILogger logger = null, BatchSettings batchSettings = null)
+        internal BatchEngine(IBatchStore store, IDependencyResolver resolver, ILogger logger, BatchSettings batchSettings)
         {
             _store = store;
             _jobExecutor = new DependencyInjectionJobExecutor(resolver);

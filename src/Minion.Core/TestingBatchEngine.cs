@@ -11,6 +11,7 @@ namespace Minion.Core
         private readonly IDateSimulationService _dateService;
         private readonly IJobExecutor _jobExecutor;
 
+        // TODO: PEBR: Rethink how this is configured
         public TestingBatchEngine(ITestingBatchStore store, IDateSimulationService dateService, IDependencyResolver resolver = null)
         {
             _store = store;

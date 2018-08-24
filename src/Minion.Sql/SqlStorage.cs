@@ -12,24 +12,6 @@ using Newtonsoft.Json;
 
 namespace Minion.Sql
 {
-    public class JobDescriptionSql
-    {
-        public Guid Id { get; set; }
-        public string Type { get; set; }
-        public DateTime DueTime { get; set; }
-        public int Priority { get; set; }
-        public int WaitCount { get; set; }
-        public Guid? PrevId { get; set; }
-        public Guid? NextId { get; set; }
-        public Guid BatchId { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public DateTime UpdatedTime { get; set; }
-        public string InputType { get; set; }
-        public string InputData { get; set; }
-        public ExecutionState State { get; set; }
-        public string StatusInfo { get; set; }
-    }
-
     public class SqlStorage : IBatchStore
     {
         private readonly IDateService _dateService;
@@ -129,12 +111,12 @@ namespace Minion.Sql
 
                 COMMIT";
 
-            IEnumerable<JobDescriptionSql> rows;
+            IEnumerable<JobDescriptionSqlModel> rows;
 
             using (var connection = new SqlConnection(_connectionString))
             {
                 rows = await connection.OpenWithRetryAsync(conn =>
-                    conn.QueryAsync<JobDescriptionSql>(sql,
+                    conn.QueryAsync<JobDescriptionSqlModel>(sql,
                         new {
                             State = (int) ExecutionState.Waiting,
                             Now = now,
@@ -226,11 +208,11 @@ namespace Minion.Sql
 
         public async Task AddJobsAsync(IEnumerable<JobDescription> jobs)
         {
-            var jobDescriptions = new List<JobDescriptionSql>();
+            var jobDescriptions = new List<JobDescriptionSqlModel>();
 
             foreach (var job in jobs)
             {
-                var jobDescription = new JobDescriptionSql
+                var jobDescription = new JobDescriptionSqlModel
                 {
                     Id = job.Id,
                     Type = job.Type,
