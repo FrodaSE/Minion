@@ -24,10 +24,9 @@ PM> Install-Package Froda.Minion
 To run the server, add the folliwing lines of code:
 
 ```
-var dateService = new UtcDateService();
-var store = new SqlStorage(dateService, '<connection string>');
+MinionConfiguration.Configuration.UseSqlStorage("<connection string>");
 
-using (var engine = new BatchEngine(store))
+using (var engine = new BatchEngine())
 {
     Console.WriteLine("Starting ...");
 
@@ -69,7 +68,7 @@ public class JobWithInput : Job<JobWithInput.Input>
 
 To schedule jobs you first need an instance of JobScheduler:
 ```
-var scheduler = new JobScheduler(store, dateService);
+var scheduler = new JobScheduler();
 ```
 
 **Fire-and-forget**
