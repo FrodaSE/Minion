@@ -18,7 +18,7 @@ namespace Minion.DotNetCoreSample
 
             MinionConfiguration.Configuration.UseDependencyResolver(resolver);
             MinionConfiguration.Configuration.UseInMemoryStorage();
-            MinionConfiguration.Configuration.UseSqlStorage("<ConnectionString>");
+            //MinionConfiguration.Configuration.UseSqlStorage("<ConnectionString>");
 
             MinionConfiguration.Configuration.HeartBeatFrequency = 2000;
             MinionConfiguration.Configuration.NumberOfParallelJobs = 2;
