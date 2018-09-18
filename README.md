@@ -11,6 +11,8 @@ Example of scenarios when you can use Minion:
 * Batch sending emails
 * ... and more
 
+![Built with dotnet](https://img.shields.io/badge/dynamic/json.svg?label=builtwithdot.net&url=https%3A%2F%2Fbuiltwithdot.net%2Fproject%2F111%2Fbadge_stats&query=%24.stats&colorB=green)
+
 ## Installation
 
 Minion is available as a NuGet package. You can install it using the NuGet Package Console windows in Visual Studio:
