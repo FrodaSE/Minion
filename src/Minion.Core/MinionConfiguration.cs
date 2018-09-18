@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Minion.Core.Interfaces;
 
 namespace Minion.Core
@@ -29,6 +31,9 @@ namespace Minion.Core
         public void UseBatchStore(IBatchStore store)
         {
             Store = store;
+            
+            var cts = new CancellationTokenSource();
+            Task.Run(() => Store.InitAsync(), cts.Token).Wait(cts.Token);
         }
 
         public void UseDependencyResolver(IDependencyResolver resolver)

@@ -61,8 +61,6 @@ namespace Minion.Core
 
             _cts = new CancellationTokenSource();
 
-            Task.Run(() => _store.InitAsync(), _cts.Token).Wait();
-
             _heartBeatTask = HeartBeatAsync(_cts.Token);
             _engineTask = ExecuteAsync(_cts.Token);
         }
