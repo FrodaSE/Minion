@@ -23,9 +23,9 @@ PM> Install-Package Froda.Minion
 
 ## Usage
 
-To run the server, add the folliwing lines of code:
+To run the server, add the following lines of code:
 
-```
+```c#
 var dateService = new UtcDateService();
 var store = new SqlStorage(dateService, '<connection string>');
 
@@ -41,7 +41,7 @@ using (var engine = new BatchEngine(store))
 
 All jobs need to inherit from `Job` or `Job<TInput>`:
 
-```
+```c#
 public class SimpleJob : Job
 {
     public override async Task<JobResult> ExecuteAsync()
@@ -70,7 +70,7 @@ public class JobWithInput : Job<JobWithInput.Input>
 
 
 To schedule jobs you first need an instance of JobScheduler:
-```
+```c#
 var scheduler = new JobScheduler(store, dateService);
 ```
 
@@ -78,7 +78,7 @@ var scheduler = new JobScheduler(store, dateService);
 
 The job will be executed as soon as possible.
 
-```
+```c#
 await scheduler.QueueAsync<SimpleJob>();
 
 var input = new JobWithInput.Input { Text = "This is awesome" };
@@ -89,7 +89,7 @@ await scheduler.QueueAsync<JobWithInput, JobWithInput.Input>(input);
 
 The job will execute at the given time.
 
-```
+```c#
 var date = new Date(2019, 04, 20);
 
 await scheduler.QueueAsync<SimpleJob>(date);
@@ -102,7 +102,7 @@ await scheduler.QueueAsync<JobWithInput, JobWithInput.Input>(input, date);
 
 Recurring jobs are scheduled as normal jobs, but need to return a new DueTime:
 
-```
+```c#
 public class RecurringJob : Job
 {
     private readonly IDateService _dateService;
@@ -124,7 +124,7 @@ public class RecurringJob : Job
 
 This will force the jobs to run in sequnce:
 
-```
+```c#
 var sequence = new Sequence();
 
 sequence.Add<FirstJob>(); //This will run first
@@ -137,7 +137,7 @@ await scheduler.QueueAsync(sequence);
 
 These jobs will run in parallel if possible:
 
-```
+```c#
 var set = new Set();
 
 set.Add<FirstJob>();
@@ -150,7 +150,7 @@ await scheduler.QueueAsync(set);
 
 You can run a set in a sequence, and a sequence in a set:
 
-```
+```c#
 var sequence = new Sequence();
 
 sequence.Add<FirstJob>(); //This will run first
@@ -174,7 +174,7 @@ With the TestingBatchEngine you can simulate your jobs with the ability to time 
 
 For an example, if you schedule a job to send an email two days from now, you can fast forward and the batch engine will act as if two days have passed.
 
-```
+```c#
 [Fact]
 public async Task Can_Send_Email() {
 
@@ -201,7 +201,7 @@ public async Task Can_Send_Email() {
 
 To hook up your IoC container to, you need to create a class that inherits from IDependencyResolver:
 
-```
+```c#
 public class CustomDependencyResolver : IDependencyResolver 
 {
     private readonly IContainer _container;
@@ -226,7 +226,7 @@ public class CustomDependencyResolver : IDependencyResolver
 ```
 
 Then you need to pass your resolver to the batch engine:
-```
+```c#
 ...
 var container = new Container();
 var resolver = new CustomDependencyResolver(container);
