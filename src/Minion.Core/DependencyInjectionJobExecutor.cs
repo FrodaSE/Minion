@@ -40,16 +40,15 @@ namespace Minion.Core
 
 			var jobInstance = ctor.Invoke(arguments.ToArray());
 
-			if (jobInstance is Job job)
+			switch (jobInstance)
 			{
-				return job.ExecuteAsync();
+			    case Job job:
+			        return job.ExecuteAsync();
+			    case JobInputBase inputJob:
+			        return inputJob.DoExecuteAsync(jobDescription.Input.InputData);
+			    default:
+			        throw new InvalidOperationException("Unknown job type.");
 			}
-
-			//TODO: Check that jobInstance is of type Job<>
-
-			var method = typeInfo.GetMethod("ExecuteAsync");
-
-			return (Task<JobResult>)method.Invoke(jobInstance, new[] { jobDescription.Input.InputData });
 		}
 	}
 }

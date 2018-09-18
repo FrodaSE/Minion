@@ -9,6 +9,7 @@
 		<description>Sql storage support for Minion, background job system for .NET applications.</description>
 		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
 		<tags>Minion Sql SqlServer</tags>
+		<projectUrl>https://github.com/FrodaSE/Minion</projectUrl>
 		<dependencies>
 			<group targetFramework="net451">
 				<dependency id="Froda.Minion.Core" version="#{version}#" />

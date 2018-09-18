@@ -9,6 +9,7 @@
 		<description>Core components for Minion, background job system for .NET applications.</description>
 		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
 		<tags>Minion Long-Running Background Fire-And-Forget Delayed Recurring Tasks Jobs Scheduler</tags>
+		<projectUrl>https://github.com/FrodaSE/Minion</projectUrl>
 		<dependencies>
 			<group targetFramework="net451">
 				<dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.1.2" />
