@@ -20,8 +20,7 @@ namespace Minion.InMemory
             _dateService = MinionConfiguration.Configuration.DateService;
         }
 
-        [Obsolete("Only used for testing")]
-        internal InMemoryStorage(IDateService dateService)
+        public InMemoryStorage(IDateService dateService)
         {
             _dateService = dateService;
         }

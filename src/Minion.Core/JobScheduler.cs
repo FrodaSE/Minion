@@ -17,8 +17,7 @@ namespace Minion.Core
 	        _dateService = MinionConfiguration.Configuration.DateService;
 	    }
 
-        [Obsolete("Only used for testing")]
-		internal JobScheduler(IBatchStore store, IDateService dateService)
+		public JobScheduler(IBatchStore store, IDateService dateService)
 		{
 			_store = store;
 			_dateService = dateService;

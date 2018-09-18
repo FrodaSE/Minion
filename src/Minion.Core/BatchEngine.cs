@@ -32,8 +32,7 @@ namespace Minion.Core
             };
         }
 
-        [Obsolete("Only used for testing")]
-        internal BatchEngine(IBatchStore store, IDependencyResolver resolver, ILogger logger, BatchSettings batchSettings)
+        public BatchEngine(IBatchStore store, IDependencyResolver resolver, ILogger logger, BatchSettings batchSettings)
         {
             _store = store;
             _jobExecutor = new DependencyInjectionJobExecutor(resolver);

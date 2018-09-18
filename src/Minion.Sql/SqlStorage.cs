@@ -23,8 +23,7 @@ namespace Minion.Sql
             _connectionString = connectionString;
         }
 
-        [Obsolete("Only used for testing")]
-        internal SqlStorage(IDateService dateService, string connectionString)
+        public SqlStorage(IDateService dateService, string connectionString)
         {
             _dateService = dateService;
             _connectionString = connectionString;
