@@ -5,6 +5,6 @@ namespace Minion.Core.Interfaces
 {
 	public interface IJobExecutor
 	{
-		Task<JobResult> ExecuteAsync(JobDescription job);
+		Task<JobResult> ExecuteAsync(JobDescription job, IDependencyResolver resolver = null);
 	}
 }

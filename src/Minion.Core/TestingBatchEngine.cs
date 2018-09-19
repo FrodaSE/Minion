@@ -7,16 +7,17 @@ namespace Minion.Core
 {
     public class TestingBatchEngine
     {
+        private readonly IJobExecutor _jobExecutor = new DependencyInjectionJobExecutor();
         private readonly ITestingBatchStore _store;
         private readonly IDateSimulationService _dateService;
-        private readonly IJobExecutor _jobExecutor;
+        private readonly IDependencyResolver _resolver;
 
         // TODO: PEBR: Rethink how this is configured
         public TestingBatchEngine(ITestingBatchStore store, IDateSimulationService dateService, IDependencyResolver resolver = null)
         {
             _store = store;
             _dateService = dateService;
-            _jobExecutor = new DependencyInjectionJobExecutor(resolver);
+            _resolver = resolver;
         }
 
         public Task AdvanceToDateAsync(DateTime date, bool throws = true)
