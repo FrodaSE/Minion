@@ -59,7 +59,7 @@ namespace Minion.Tests
             };
 
             //Act
-            using (var engine = new BatchEngine(_store, null, _logger, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
             {
                 engine.Start();
 
@@ -87,7 +87,7 @@ namespace Minion.Tests
                 .Throws(x => new Exception("Some error"));
 
             //Act
-            using (var engine = new BatchEngine(_store, null, _logger, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
             {
                 engine.Start();
 
@@ -120,7 +120,7 @@ namespace Minion.Tests
                 .Throws(x => new Exception("Some error"));
 
             //Act
-            using (var engine = new BatchEngine(_store, null, null, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, null, settings))
             {
                 engine.Start();
 
@@ -246,7 +246,7 @@ namespace Minion.Tests
             await _store.ReleaseJobAsync(job.Id, Arg.Do<JobResult>(x => result = x));
 
             //Act
-            using (var engine = new BatchEngine(_store, null, _logger, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
             {
                 engine.Start();
 
@@ -283,7 +283,7 @@ namespace Minion.Tests
             await _store.ReleaseJobAsync(job.Id, Arg.Do<JobResult>(x => result = x));
 
             //Act
-            using (var engine = new BatchEngine(_store, null, _logger, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
             {
                 engine.Start();
 
@@ -321,7 +321,7 @@ namespace Minion.Tests
             _store.AcquireJobAsync().Returns(Task.FromResult(job), Task.FromResult((JobDescription)null));
 
             //Act
-            using (var engine = new BatchEngine(_store, null, null, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, null, settings))
             {
                 engine.Start();
 
@@ -357,7 +357,7 @@ namespace Minion.Tests
             _store.AcquireJobAsync().Returns(Task.FromResult(job), Task.FromResult((JobDescription)null), Task.FromResult(job), Task.FromResult((JobDescription)null));
 
             //Act
-            using (var engine = new BatchEngine(_store, null, _logger, settings))
+            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
             {
                 engine.Start();
 
