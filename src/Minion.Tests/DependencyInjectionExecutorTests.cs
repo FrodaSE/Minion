@@ -17,7 +17,7 @@ namespace Minion.Tests
 		public DependencyInjectionExecutorTests()
 		{
 			_dependencyResolver = Substitute.For<IDependencyResolver>();
-			_jobExecutor = new DependencyInjectionJobExecutor(_dependencyResolver);
+			_jobExecutor = new DependencyInjectionJobExecutor();
 		}
 
 		[Fact(DisplayName = "Execute Job Without Constructor Dependencies")]
@@ -30,7 +30,7 @@ namespace Minion.Tests
 			};
 
 			//Act
-			var result = await _jobExecutor.ExecuteAsync(job);
+			var result = await _jobExecutor.ExecuteAsync(job, _dependencyResolver);
 
 			//Assert
 			Assert.Equal(ExecutionState.Finished, result.State);
@@ -55,7 +55,7 @@ namespace Minion.Tests
 			});
 
 			//Act
-			var result = await _jobExecutor.ExecuteAsync(job);
+			var result = await _jobExecutor.ExecuteAsync(job, _dependencyResolver);
 
 			//Assert
 			_dependencyResolver.Received(1).Resolve(typeof(ITestService), out _);
@@ -76,7 +76,7 @@ namespace Minion.Tests
 			_dependencyResolver.Resolve(typeof(ITestService), out _).Returns(x => false);
 
 			//Act
-			var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => _jobExecutor.ExecuteAsync(job));
+			var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => _jobExecutor.ExecuteAsync(job, _dependencyResolver));
 
 			//Assert
 			Assert.Equal("Could not resolve parameter of type: " + typeof(ITestService).AssemblyQualifiedName, ex.Message);
@@ -110,7 +110,7 @@ namespace Minion.Tests
 			});
 
 			//Act
-			var result = await _jobExecutor.ExecuteAsync(job);
+			var result = await _jobExecutor.ExecuteAsync(job, _dependencyResolver);
 
 
 			//Assert
@@ -123,7 +123,7 @@ namespace Minion.Tests
 	    public async Task Execute_Job_With_Dependency_When_Dependency_Resolver_Is_Null()
 	    {
 	        //Arrange
-            var executor = new DependencyInjectionJobExecutor(null);
+            var executor = new DependencyInjectionJobExecutor();
 
             var job = new JobDescription
 	        {
