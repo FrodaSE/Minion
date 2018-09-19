@@ -10,7 +10,7 @@ namespace Minion.Core
     public class BatchEngine : IDisposable
     {
         private readonly IBatchStore _store;
-        private readonly IJobExecutor _jobExecutor;
+        private readonly IJobExecutor _jobExecutor = new DependencyInjectionJobExecutor();
         private readonly ILogger _logger;
         private readonly BatchSettings _settings;
 
@@ -22,7 +22,6 @@ namespace Minion.Core
         public BatchEngine()
         {
             _store = MinionConfiguration.Configuration.Store;
-            _jobExecutor = new DependencyInjectionJobExecutor(MinionConfiguration.Configuration.DependencyResolver);
             _logger = MinionConfiguration.Configuration.Logger;
             _settings = new BatchSettings
             {
@@ -32,10 +31,9 @@ namespace Minion.Core
             };
         }
 
-        public BatchEngine(IBatchStore store, IDependencyResolver resolver, ILogger logger, BatchSettings batchSettings)
+        public BatchEngine(IBatchStore store, ILogger logger, BatchSettings batchSettings)
         {
             _store = store;
-            _jobExecutor = new DependencyInjectionJobExecutor(resolver);
             _logger = logger;
             _settings = batchSettings ?? new BatchSettings();
         }
@@ -155,7 +153,7 @@ namespace Minion.Core
 
             try
             {
-                result = await _jobExecutor.ExecuteAsync(job);
+                result = await _jobExecutor.ExecuteAsync(job, MinionConfiguration.Configuration.DependencyResolver);
             }
             catch (Exception e)
             {
