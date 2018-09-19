@@ -9,14 +9,15 @@ namespace Minion.Core
 {
     public class BatchEngine : IDisposable
     {
-        private readonly IBatchStore _store;
         private readonly IJobExecutor _jobExecutor = new DependencyInjectionJobExecutor();
+        
+        private readonly IBatchStore _store;
+        private readonly IDependencyResolver _resolver;
         private readonly ILogger _logger;
         private readonly BatchSettings _settings;
 
         private CancellationTokenSource _cts;
         private Task _engineTask;
-
         private Task _heartBeatTask;
 
         public BatchEngine()
@@ -29,13 +30,15 @@ namespace Minion.Core
                 NumberOfParallelJobs = MinionConfiguration.Configuration.NumberOfParallelJobs,
                 PollingFrequency = MinionConfiguration.Configuration.PollingFrequency,
             };
+            _resolver = MinionConfiguration.Configuration.DependencyResolver;
         }
 
-        public BatchEngine(IBatchStore store, ILogger logger, BatchSettings batchSettings)
+        public BatchEngine(IBatchStore store, IDependencyResolver resolver, ILogger logger, BatchSettings batchSettings)
         {
             _store = store;
             _logger = logger;
             _settings = batchSettings ?? new BatchSettings();
+            _resolver = resolver;
         }
 
         public void Dispose()
@@ -153,7 +156,7 @@ namespace Minion.Core
 
             try
             {
-                result = await _jobExecutor.ExecuteAsync(job, MinionConfiguration.Configuration.DependencyResolver);
+                result = await _jobExecutor.ExecuteAsync(job, _resolver);
             }
             catch (Exception e)
             {
