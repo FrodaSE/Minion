@@ -38,7 +38,7 @@ namespace Minion.Tests
             InvalidOperationException ex;
 
             //Act
-            using (var engine = new BatchEngine(null, null, null, settings))
+            using (var engine = new BatchEngine(null, null, settings))
             {
                 ex = Assert.Throws<InvalidOperationException>(() => engine.Start());
             }
@@ -59,7 +59,7 @@ namespace Minion.Tests
             };
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
@@ -87,7 +87,7 @@ namespace Minion.Tests
                 .Throws(x => new Exception("Some error"));
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
@@ -120,7 +120,7 @@ namespace Minion.Tests
                 .Throws(x => new Exception("Some error"));
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, null, settings))
+            using (var engine = new BatchEngine(_store, null, settings))
             {
                 engine.Start();
 
@@ -143,6 +143,7 @@ namespace Minion.Tests
                 PollingFrequency = 50,
                 HeartBeatFrequency = 5000,
             };
+            MinionConfiguration.Configuration.UseDependencyResolver(_dependencyResolver);
 
             var job1 = Task.FromResult(CreateJob(1));
             var job2 = Task.FromResult(CreateJob(2));
@@ -159,7 +160,7 @@ namespace Minion.Tests
             });
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
@@ -189,6 +190,7 @@ namespace Minion.Tests
                 PollingFrequency = 50,
                 HeartBeatFrequency = 5000,
             };
+            MinionConfiguration.Configuration.UseDependencyResolver(_dependencyResolver);
 
             var job = Task.FromResult(CreateDelayedJob(300));
 
@@ -204,7 +206,7 @@ namespace Minion.Tests
             });
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
@@ -246,7 +248,7 @@ namespace Minion.Tests
             await _store.ReleaseJobAsync(job.Id, Arg.Do<JobResult>(x => result = x));
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
@@ -283,7 +285,7 @@ namespace Minion.Tests
             await _store.ReleaseJobAsync(job.Id, Arg.Do<JobResult>(x => result = x));
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
@@ -321,7 +323,7 @@ namespace Minion.Tests
             _store.AcquireJobAsync().Returns(Task.FromResult(job), Task.FromResult((JobDescription)null));
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, null, settings))
+            using (var engine = new BatchEngine(_store, null, settings))
             {
                 engine.Start();
 
@@ -357,7 +359,7 @@ namespace Minion.Tests
             _store.AcquireJobAsync().Returns(Task.FromResult(job), Task.FromResult((JobDescription)null), Task.FromResult(job), Task.FromResult((JobDescription)null));
 
             //Act
-            using (var engine = new BatchEngine(_store, _dependencyResolver, _logger, settings))
+            using (var engine = new BatchEngine(_store, _logger, settings))
             {
                 engine.Start();
 
