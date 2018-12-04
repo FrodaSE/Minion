@@ -22,6 +22,19 @@ namespace Minion.Core
 
         public BatchEngine()
         {
+            if (MinionConfiguration.Configuration.HeartBeatFrequency <= 0)
+                throw new ArgumentOutOfRangeException(
+                    nameof(MinionConfiguration.Configuration.HeartBeatFrequency),
+                    "Heartbeat frequency must be more than 0");
+            if (MinionConfiguration.Configuration.NumberOfParallelJobs <= 0)
+                throw new ArgumentOutOfRangeException(
+                    nameof(MinionConfiguration.Configuration.NumberOfParallelJobs),
+                    "Number of parallel jobs must be more than 0");
+            if (MinionConfiguration.Configuration.PollingFrequency <= 0)
+                throw new ArgumentOutOfRangeException(
+                    nameof(MinionConfiguration.Configuration.PollingFrequency),
+                    "Polling frequency must be more than 0");
+            
             _store = MinionConfiguration.Configuration.Store;
             _logger = MinionConfiguration.Configuration.Logger;
             _settings = new BatchSettings
