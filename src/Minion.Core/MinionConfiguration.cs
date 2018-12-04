@@ -9,7 +9,12 @@ namespace Minion.Core
     {
         private readonly DatePassThruService _dateService = new DatePassThruService(new UtcDateService());
 
-        public static MinionConfiguration Configuration { get; } = new MinionConfiguration();
+        public static MinionConfiguration Configuration { get; } = new MinionConfiguration
+        {
+            HeartBeatFrequency = 2000,
+            NumberOfParallelJobs = 2,
+            PollingFrequency = 500
+        };
 
         public IBatchStore Store { get; private set; }
         public IDateService DateService => _dateService;
