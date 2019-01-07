@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -165,7 +166,8 @@ namespace Minion.Core
 
         private async Task ExecuteAndReleaseJobAsync(JobDescription job)
         {
-            JobResult result = null;
+            var result = null as JobResult;
+            var stopwatch = Stopwatch.StartNew();
 
             try
             {
@@ -184,6 +186,9 @@ namespace Minion.Core
             }
             finally
             {
+                stopwatch.Stop();
+                result.ExecutionTime = stopwatch.Elapsed;
+
                 await _store.ReleaseJobAsync(job.Id, result);
             }
         }

@@ -73,6 +73,7 @@ namespace Minion.InMemory
                 job.State = result.State;
                 job.StatusInfo = result.StatusInfo;
                 job.DueTime = result.DueTime;
+                job.ExecutionTime = result.ExecutionTime;
 
                 if (job.State == ExecutionState.Finished)
                 {

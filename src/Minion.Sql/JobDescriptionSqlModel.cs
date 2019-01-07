@@ -19,5 +19,6 @@ namespace Minion.Sql
         public string InputData { get; set; }
         public ExecutionState State { get; set; }
         public string StatusInfo { get; set; }
+        public long ExecutionTime { get; set; }
     }
 }
