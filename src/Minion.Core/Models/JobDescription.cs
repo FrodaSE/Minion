@@ -17,5 +17,6 @@ namespace Minion.Core.Models
 		public JobInputDescription Input { get; set; }
         public ExecutionState State { get; set; }
 	    public string StatusInfo { get; set; }
-	}
+        public TimeSpan ExecutionTime { get; set; }
+    }
 }

@@ -49,7 +49,8 @@ namespace Minion.Sql
                         InputType       nvarchar(MAX)       NULL,
                         InputData       nvarchar(MAX)       NULL,
                         State           int                 NOT NULL,
-                        StatusInfo      nvarchar(MAX)       NULL
+                        StatusInfo      nvarchar(MAX)       NULL,
+                        ExecTime        bigint              NOT NULL
                     )
                 END";
 
@@ -90,7 +91,8 @@ namespace Minion.Sql
                         inserted.InputType, 
                         inserted.InputData, 
                         inserted.State, 
-                        inserted.StatusInfo
+                        inserted.StatusInfo,
+                        inserted.ExecTime
                     
                     from Jobs as job WITH (TABLOCK, HOLDLOCK)
                         inner join (
@@ -143,7 +145,8 @@ namespace Minion.Sql
                 CreatedTime = result.CreatedTime,
                 UpdatedTime = result.UpdatedTime,
                 State = result.State,
-                StatusInfo = result.StatusInfo
+                StatusInfo = result.StatusInfo,
+                ExecutionTime = TimeSpan.FromTicks(result.ExecutionTime),
             };
 
             if (!string.IsNullOrEmpty(result.InputData))
@@ -167,7 +170,8 @@ namespace Minion.Sql
                         SET 
                             State = @State, 
                             StatusInfo = @StatusInfo, 
-                            DueTime = @DueTime
+                            DueTime = @DueTime,
+                            ExecTime = @ExecTime
 
                     WHERE 
                         Id = @Id
@@ -198,6 +202,7 @@ namespace Minion.Sql
                             State = (int) result.State,
                             StatusInfo = result.StatusInfo,
                             DueTime = GetSqlSafeDate(result.DueTime),
+                            ExecTime = result.ExecutionTime.Ticks,
                             FinishedState = (int) ExecutionState.Finished,
                             Id = jobId
                         })
@@ -225,6 +230,7 @@ namespace Minion.Sql
                     UpdatedTime = job.UpdatedTime,
                     State = job.State,
                     StatusInfo = job.StatusInfo,
+                    ExecutionTime = job.ExecutionTime.Ticks,
                 };
 
                 if (job.Input != null)
@@ -259,7 +265,8 @@ namespace Minion.Sql
                             InputType,  
                             InputData,  
                             State,  
-                            StatusInfo
+                            StatusInfo,
+                            ExecTime
                          ) 
 
                     Values 
@@ -278,7 +285,8 @@ namespace Minion.Sql
                             @InputType,  
                             @InputData,  
                             @State,  
-                            @StatusInfo
+                            @StatusInfo,
+                            @ExecutionTime
                         )
 
                 COMMIT";

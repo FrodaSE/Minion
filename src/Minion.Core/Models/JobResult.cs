@@ -7,5 +7,6 @@ namespace Minion.Core.Models
 		public ExecutionState State { get; set; }
 		public string StatusInfo { get; set; }
 		public DateTime DueTime { get; set; }
+        public TimeSpan ExecutionTime { get; set; }
 	}
 }
