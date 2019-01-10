@@ -7,7 +7,7 @@
 		<owners>Monetise Capital AB</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Core components for Minion, background job system for .NET applications.</description>
-		<copyright>Copyright © 2018-2018 Monetise Capital AB</copyright>
+		<copyright>Copyright © 2018-2019 Monetise Capital AB</copyright>
 		<tags>Minion Long-Running Background Fire-And-Forget Delayed Recurring Tasks Jobs Scheduler</tags>
 		<projectUrl>https://github.com/FrodaSE/Minion</projectUrl>
 		<dependencies>
