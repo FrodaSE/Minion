@@ -73,7 +73,7 @@ namespace Minion.Core
 
             try
             {
-                result = await _jobExecutor.ExecuteAsync(job);
+                result = await _jobExecutor.ExecuteAsync(job, _resolver);
             }
             catch (Exception e)
             {
